@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.github.dhaval2404.sharedprefinspector"
+        applicationId "com.github.dhaval2404.sharedprefinspector.sample"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
