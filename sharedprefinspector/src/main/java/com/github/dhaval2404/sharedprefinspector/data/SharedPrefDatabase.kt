@@ -26,7 +26,7 @@ abstract class SharedPrefDatabase : RoomDatabase() {
     companion object {
 
         fun getInstance(context: Context): SharedPrefDatabase {
-            return Room.databaseBuilder(context, SharedPrefDatabase::class.java, "share_pref.db")
+            return Room.databaseBuilder(context, SharedPrefDatabase::class.java, "shared_pref_inspector.db")
                 .fallbackToDestructiveMigration()
                 .build()
         }
