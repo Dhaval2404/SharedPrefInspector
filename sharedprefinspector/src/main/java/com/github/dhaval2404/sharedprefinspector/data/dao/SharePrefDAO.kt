@@ -1,6 +1,7 @@
 package com.github.dhaval2404.sharedprefinspector.data.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.github.dhaval2404.sharedprefinspector.data.entity.SharedPref
 
@@ -14,7 +15,7 @@ import com.github.dhaval2404.sharedprefinspector.data.entity.SharedPref
 @Dao
 interface SharePrefDAO {
 
-    @Query("select * from shared_pref")
+    @Insert
     suspend fun insert(sharedPref: SharedPref): Long
 
     @Query("select * from shared_pref")
