@@ -1,7 +1,10 @@
 package com.github.dhaval2404.sharedprefinspector
 
 import android.content.Context
-import android.content.SharedPreferences
+import android.util.Log
+import com.github.dhaval2404.sharedprefinspector.constant.Action
+import com.github.dhaval2404.sharedprefinspector.data.SharedPrefFactory
+import com.github.dhaval2404.sharedprefinspector.data.entity.SharedPref
 import java.util.Collections
 
 /**
@@ -11,10 +14,10 @@ import java.util.Collections
  * @version 1.0
  * @since 09 Sep 2020
  */
-class SharedPrefManager(context: Context, prefName: String) {
+class SharedPrefManager(context: Context, private val prefName: String) {
 
-    private val mSharedPreferences: SharedPreferences =
-        context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+    private val mSharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+    private val mSharedPrefRepository = SharedPrefFactory.getSharedPrefRepository(context)
 
     /**
      * Checks whether the preferences contains a preference.
@@ -158,7 +161,11 @@ class SharedPrefManager(context: Context, prefName: String) {
      *    this key.
      */
     fun put(key: String, value: String?) {
-        mSharedPreferences.edit().putString(key, value).apply()
+        if (value != null) {
+            putObject(key, value)
+        } else {
+            remove(key)
+        }
     }
 
     /**
@@ -170,8 +177,8 @@ class SharedPrefManager(context: Context, prefName: String) {
      *    for this argument is equivalent to calling {@link #remove(String)} with
      *    this key.
      */
-    fun put(key: String, values: MutableSet<String>?) {
-        mSharedPreferences.edit().putStringSet(key, values).apply()
+    fun put(key: String, values: Set<String>?) {
+        putObject(key, values)
     }
 
     /**
@@ -183,7 +190,7 @@ class SharedPrefManager(context: Context, prefName: String) {
      *
      */
     fun put(key: String, value: Int) {
-        mSharedPreferences.edit().putInt(key, value).apply()
+        putObject(key, value)
     }
 
     /**
@@ -195,7 +202,7 @@ class SharedPrefManager(context: Context, prefName: String) {
      *
      */
     fun put(key: String, value: Long) {
-        mSharedPreferences.edit().putLong(key, value).apply()
+        putObject(key, value)
     }
 
     /**
@@ -207,7 +214,7 @@ class SharedPrefManager(context: Context, prefName: String) {
      *
      */
     fun put(key: String, value: Float) {
-        mSharedPreferences.edit().putFloat(key, value).apply()
+        putObject(key, value)
     }
 
     /**
@@ -219,7 +226,7 @@ class SharedPrefManager(context: Context, prefName: String) {
      *
      */
     fun put(key: String, value: Boolean) {
-        mSharedPreferences.edit().putBoolean(key, value).apply()
+        putObject(key, value)
     }
 
     /**
@@ -235,6 +242,12 @@ class SharedPrefManager(context: Context, prefName: String) {
      */
     fun clear() {
         mSharedPreferences.edit().clear().apply()
+
+        val sharedPref = SharedPref(
+            action = Action.CLEAR,
+            key = prefName
+        )
+        mSharedPrefRepository.insert(sharedPref)
     }
 
     /**
@@ -250,7 +263,52 @@ class SharedPrefManager(context: Context, prefName: String) {
      * @return Returns true if the SharedPreferences remove key successfully
      */
     fun remove(key: String) {
+        Log.e("SharePref", "Remove $key")
         mSharedPreferences.edit().remove(key).apply()
+        val sharedPref = SharedPref(
+            action = Action.DELETE,
+            key = key
+        )
+        mSharedPrefRepository.insert(sharedPref)
+    }
+
+    /**
+     * Set a Any value in the preferences editor, to be written back once
+     * commit is called.
+     *
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.  Passing {@code null}
+     *    for this argument is equivalent to calling {@link #remove(String)} with
+     *    this key.
+     */
+    private fun putObject(key: String, value: Any?) {
+        val isUpdate = contains(key)
+
+        val editor = mSharedPreferences.edit()
+        when (value) {
+            is Boolean -> editor.putBoolean(key, value)
+            is Int -> editor.putInt(key, value)
+            is Float -> editor.putFloat(key, value)
+            is Long -> editor.putLong(key, value)
+            is String -> editor.putString(key, value)
+            is Enum<*> -> editor.putString(key, value.toString())
+            null -> editor.remove(key)
+            else -> {
+                if (value is List<*> || value is Set<*>) {
+                    editor.putStringSet(key, (value as Collection<*>).map { it.toString() }.toSet())
+                } else {
+                    throw RuntimeException("Attempting to save non-supported preference")
+                }
+            }
+        }
+        editor.apply()
+
+       val sharedPref = SharedPref(
+           action = if (isUpdate) Action.UPDATE else Action.ADD,
+            key = key,
+            value = value.toString()
+        )
+        mSharedPrefRepository.insert(sharedPref)
     }
 
 }
