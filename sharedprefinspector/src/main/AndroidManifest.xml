@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.dhaval2404.sharedprefinspector">
 
-    /
+    <application>
+
+        <receiver android:name=".util.ClearDatabaseReceiver"/>
+
+        <activity android:name=".screens.SharedPrefTransactionActivity" />
+
+    </application>
 </manifest>
