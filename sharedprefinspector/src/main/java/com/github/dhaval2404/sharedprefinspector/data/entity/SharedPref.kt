@@ -20,4 +20,10 @@ data class SharedPref(
     var value: String? = null,
     @ColumnInfo(name = "timestamp")
     var date: Date = Date()
-)
+) {
+
+    fun getNotificationText():String{
+        return "$action $key => $value"
+    }
+
+}

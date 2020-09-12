@@ -12,6 +12,7 @@ class SharedPrefRepository(context: Context) {
     private val mSharePrefDAO = SharedPrefDatabase.getInstance(context).sharePrefDAO()
 
     fun insert(sharedPref: SharedPref) {
+        //TODO: Show Notification
         CoroutineScope(Dispatchers.Main).launch {
             mSharePrefDAO.insert(sharedPref)
         }
