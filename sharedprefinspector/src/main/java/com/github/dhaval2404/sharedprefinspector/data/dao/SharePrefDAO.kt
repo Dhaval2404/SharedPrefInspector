@@ -1,5 +1,6 @@
 package com.github.dhaval2404.sharedprefinspector.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -18,8 +19,8 @@ interface SharePrefDAO {
     @Insert
     suspend fun insert(sharedPref: SharedPref): Long
 
-    @Query("select * from shared_pref")
-    suspend fun getAll(): List<SharedPref>
+    @Query("select * from shared_pref order by timestamp desc")
+    fun getAll(): LiveData<List<SharedPref>>
 
     @Query("delete from shared_pref")
     suspend fun clear()
