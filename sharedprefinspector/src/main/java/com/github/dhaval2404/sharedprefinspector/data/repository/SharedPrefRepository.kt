@@ -1,6 +1,7 @@
 package com.github.dhaval2404.sharedprefinspector.data.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.github.dhaval2404.sharedprefinspector.data.SharedPrefDatabase
 import com.github.dhaval2404.sharedprefinspector.data.entity.SharedPref
 import com.github.dhaval2404.sharedprefinspector.util.NotificationHelper
@@ -8,26 +9,32 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SharedPrefRepository(context: Context) {
+interface SharedPrefRepository {
+
+    fun insert(sharedPref: SharedPref)
+
+    fun getAll(): LiveData<List<SharedPref>>
+
+    suspend fun clear()
+
+}
+
+class SharedPrefRepositoryImpl(context: Context) : SharedPrefRepository {
 
     private val mSharePrefDAO = SharedPrefDatabase.getInstance(context).sharePrefDAO()
     private val mNotificationHelper = NotificationHelper(context)
 
-    fun insert(sharedPref: SharedPref) {
+    override fun insert(sharedPref: SharedPref) {
         CoroutineScope(Dispatchers.Main).launch {
             sharedPref.id = mSharePrefDAO.insert(sharedPref)
             mNotificationHelper.show(sharedPref)
         }
     }
 
-    suspend fun getAll(sharedPref: SharedPref) {
-        mSharePrefDAO.getAll()
-    }
+    override fun getAll() = mSharePrefDAO.getAll()
 
-    suspend fun clear() {
-        CoroutineScope(Dispatchers.Main).launch {
-            mSharePrefDAO.clear()
-        }
+    override suspend fun clear() {
+        mSharePrefDAO.clear()
     }
 
 }

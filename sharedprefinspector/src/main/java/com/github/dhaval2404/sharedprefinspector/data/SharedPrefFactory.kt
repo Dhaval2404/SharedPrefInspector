@@ -2,6 +2,7 @@ package com.github.dhaval2404.sharedprefinspector.data
 
 import android.content.Context
 import com.github.dhaval2404.sharedprefinspector.data.repository.SharedPrefRepository
+import com.github.dhaval2404.sharedprefinspector.data.repository.SharedPrefRepositoryImpl
 
 object SharedPrefFactory {
 
@@ -9,7 +10,7 @@ object SharedPrefFactory {
 
     fun getSharedPrefRepository(context: Context): SharedPrefRepository {
         if (!::mSharedPrefRepository.isInitialized) {
-            mSharedPrefRepository = SharedPrefRepository(context)
+            mSharedPrefRepository = SharedPrefRepositoryImpl(context)
         }
         return mSharedPrefRepository
     }
