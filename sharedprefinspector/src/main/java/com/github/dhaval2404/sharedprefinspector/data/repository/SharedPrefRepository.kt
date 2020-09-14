@@ -15,7 +15,7 @@ interface SharedPrefRepository {
 
     fun getAll(): LiveData<List<SharedPref>>
 
-    suspend fun clear()
+    fun clear()
 
 }
 
@@ -33,8 +33,10 @@ class SharedPrefRepositoryImpl(context: Context) : SharedPrefRepository {
 
     override fun getAll() = mSharePrefDAO.getAll()
 
-    override suspend fun clear() {
-        mSharePrefDAO.clear()
+    override fun clear() {
+        CoroutineScope(Dispatchers.Main).launch {
+            mSharePrefDAO.clear()
+        }
     }
 
 }
