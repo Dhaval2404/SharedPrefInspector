@@ -3,6 +3,7 @@ package com.github.dhaval2404.sharedprefinspector.screens
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.sharedprefinspector.R
 import com.github.dhaval2404.sharedprefinspector.data.entity.SharedPref
@@ -26,12 +27,16 @@ class SharedPrefTransactionAdapter :
 
     override fun onBindViewHolder(holder: SharedPrefViewHolder, position: Int) {
         val sharedPref = mSharedPrefTransactions[position]
-        holder.titleTxt.setText(sharedPref.getNotificationText())
+        holder.actionTxt.text = sharedPref.action
+        holder.keyTxt.text = sharedPref.key
+        holder.valueTxt.text = sharedPref.value
+        holder.valueTxt.isVisible = sharedPref.value != null
     }
 
-
     class SharedPrefViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTxt = view.title
+        internal val actionTxt = view.action
+        internal val keyTxt = view.key
+        internal val valueTxt = view.value
     }
 
     fun refresh(list: List<SharedPref>) {
