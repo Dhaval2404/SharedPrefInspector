@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.github.dhaval2404.sharedprefinspector.R
 import com.github.dhaval2404.sharedprefinspector.data.entity.SharedPref
-import com.github.dhaval2404.sharedprefinspector.screens.SharedPrefTransactionActivity
+import com.github.dhaval2404.sharedprefinspector.screens.transaction.SharedPrefTransactionActivity
 import java.util.HashSet
 
 internal class NotificationHelper(val context: Context) {

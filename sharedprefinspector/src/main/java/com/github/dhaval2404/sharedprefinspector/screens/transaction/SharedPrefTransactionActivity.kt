@@ -1,5 +1,6 @@
-package com.github.dhaval2404.sharedprefinspector.screens
+package com.github.dhaval2404.sharedprefinspector.screens.transaction
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.github.dhaval2404.sharedprefinspector.R
 import com.github.dhaval2404.sharedprefinspector.data.SharedPrefFactory
 import com.github.dhaval2404.sharedprefinspector.data.repository.SharedPrefRepository
+import com.github.dhaval2404.sharedprefinspector.screens.shared_pref_listing.SharedPrefListingActivity
 import kotlinx.android.synthetic.main.activity_shared_pref_transaction.*
 
 class SharedPrefTransactionActivity : AppCompatActivity(R.layout.activity_shared_pref_transaction) {
@@ -28,6 +30,10 @@ class SharedPrefTransactionActivity : AppCompatActivity(R.layout.activity_shared
         mSharedPrefRepository.getAll().observe(this, Observer {
             adapter.refresh(it)
         })
+
+        sharedPrefViewFab.setOnClickListener {
+            startActivity(Intent(this, SharedPrefListingActivity::class.java))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

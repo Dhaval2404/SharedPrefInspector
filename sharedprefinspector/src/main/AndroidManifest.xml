@@ -5,7 +5,9 @@
 
         <receiver android:name=".util.ClearDatabaseReceiver"/>
 
-        <activity android:name=".screens.SharedPrefTransactionActivity" />
+        <activity android:name=".screens.transaction.SharedPrefTransactionActivity" />
+
+        <activity android:name=".screens.shared_pref_listing.SharedPrefListingActivity" />
 
     </application>
 </manifest>

@@ -1,4 +1,4 @@
-package com.github.dhaval2404.sharedprefinspector.screens
+package com.github.dhaval2404.sharedprefinspector.screens.transaction
 
 import android.view.LayoutInflater
 import android.view.View

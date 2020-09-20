@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#373833</color>
-    <color name="colorPrimaryDark">#373833</color>
-    <color name="colorAccent">#F3E367</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorAccent">#4DB6AC</color>
     <color name="sharedpref_color_primary">@color/colorPrimary</color>
-
-    <color name="white">#FFFFFF</color>
 
 </resources>
