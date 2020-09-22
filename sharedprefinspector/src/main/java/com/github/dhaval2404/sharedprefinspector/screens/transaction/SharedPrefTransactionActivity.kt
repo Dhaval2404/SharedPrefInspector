@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.github.dhaval2404.sharedprefinspector.R
 import com.github.dhaval2404.sharedprefinspector.data.SharedPrefFactory
 import com.github.dhaval2404.sharedprefinspector.data.repository.SharedPrefRepository
-import com.github.dhaval2404.sharedprefinspector.screens.shared_pref_listing.SharedPrefListingActivity
+import com.github.dhaval2404.sharedprefinspector.screens.shared_pref_file_listing.SharedPrefFilesListingActivity
 import kotlinx.android.synthetic.main.activity_shared_pref_transaction.*
 
 class SharedPrefTransactionActivity : AppCompatActivity(R.layout.activity_shared_pref_transaction) {
@@ -32,7 +32,7 @@ class SharedPrefTransactionActivity : AppCompatActivity(R.layout.activity_shared
         })
 
         sharedPrefViewFab.setOnClickListener {
-            startActivity(Intent(this, SharedPrefListingActivity::class.java))
+            startActivity(Intent(this, SharedPrefFilesListingActivity::class.java))
         }
     }
 

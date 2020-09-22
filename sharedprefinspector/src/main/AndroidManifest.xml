@@ -7,7 +7,7 @@
 
         <activity android:name=".screens.transaction.SharedPrefTransactionActivity" />
 
-        <activity android:name=".screens.shared_pref_listing.SharedPrefListingActivity" />
+        <activity android:name=".screens.shared_pref_file_listing.SharedPrefFilesListingActivity" />
 
     </application>
 </manifest>
