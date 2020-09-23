@@ -13,6 +13,12 @@ class SharedPrefFileListingAdapter :
 
     private val mItems = ArrayList<File>()
 
+    private var mItemClickListener: ((File) -> Unit)? = null
+
+    fun setItemClickListener(listener: (File) -> Unit) {
+        mItemClickListener = listener
+    }
+
     override fun getItemCount() = mItems.size
 
     override fun onCreateViewHolder(
@@ -25,11 +31,19 @@ class SharedPrefFileListingAdapter :
     }
 
     override fun onBindViewHolder(holder: SharedPrefViewHolder, position: Int) {
-        holder.sharedPrefFileTxt.text = mItems[position].nameWithoutExtension
+        val file = mItems[position]
+        holder.sharedPrefFileTxt.text = file.nameWithoutExtension
+        holder.itemView.tag = file
     }
 
-    class SharedPrefViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class SharedPrefViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         internal val sharedPrefFileTxt = view.sharedPrefFile
+
+        init {
+            view.setOnClickListener {
+                mItemClickListener?.invoke(it.tag as File)
+            }
+        }
     }
 
     fun refresh(list: List<File>) {

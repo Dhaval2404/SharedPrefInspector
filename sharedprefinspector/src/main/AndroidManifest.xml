@@ -9,5 +9,7 @@
 
         <activity android:name=".screens.shared_pref_file_listing.SharedPrefFilesListingActivity" />
 
+        <activity android:name=".screens.share_pref_listing.SharedPrefListingActivity" />
+
     </application>
 </manifest>
