@@ -13,7 +13,7 @@ class SharedPrefFilesListingActivity : AppCompatActivity(R.layout.activity_share
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val adapter = SharedPrefFileListingAdapter()
+        val adapter = SharedPrefFilesListingAdapter()
         adapter.setItemClickListener {
             startActivity(Intent(this, SharedPrefListingActivity::class.java).apply {
                 putExtra("shared_pref", it.nameWithoutExtension)

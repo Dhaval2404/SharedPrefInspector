@@ -8,8 +8,8 @@ import com.github.dhaval2404.sharedprefinspector.R
 import kotlinx.android.synthetic.main.adapter_shared_pref_files_list.view.*
 import java.io.File
 
-class SharedPrefFileListingAdapter :
-    RecyclerView.Adapter<SharedPrefFileListingAdapter.SharedPrefViewHolder>() {
+class SharedPrefFilesListingAdapter :
+    RecyclerView.Adapter<SharedPrefFilesListingAdapter.SharedPrefViewHolder>() {
 
     private val mItems = ArrayList<File>()
 
