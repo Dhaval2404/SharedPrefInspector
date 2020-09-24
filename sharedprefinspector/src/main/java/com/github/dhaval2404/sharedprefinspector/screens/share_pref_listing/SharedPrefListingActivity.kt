@@ -45,7 +45,6 @@ class SharedPrefListingActivity : AppCompatActivity(R.layout.activity_shared_pre
 
         val alertDialog = builder.create()
         alertDialog.show()
-        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
 }
